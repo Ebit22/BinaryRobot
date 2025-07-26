@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://co0yr5ho3dlru"]
+
+[ext_resource type="Texture2D" uid="uid://cy4jgvbxiwryb" path="res://icon.svg" id="1_drg1f"]
+[ext_resource type="Script" path="res://robot.gd" id="1_evvh8"]
+
+[sub_resource type="Gradient" id="Gradient_07unc"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nogg4"]
+gradient = SubResource("Gradient_07unc")
+width = 1024
+height = 1024
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ae64t"]
+size = Vector2(128, 129)
+
+[node name="Robot" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+z_index = 1
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_evvh8")
+
+[node name="PointLight2D" type="PointLight2D" parent="CharacterBody2D"]
+texture = SubResource("GradientTexture2D_nogg4")
+texture_scale = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("1_drg1f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ae64t")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+scale = Vector2(8, 4)
+zoom = Vector2(4, 4)

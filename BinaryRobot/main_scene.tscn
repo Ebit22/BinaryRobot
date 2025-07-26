@@ -1,0 +1,178 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2xctes7gtjiu"]
+
+[ext_resource type="Script" path="res://Terminal/terminal.gd" id="1_3rju4"]
+[ext_resource type="FontFile" uid="uid://b8vp74rkdj231" path="res://Terminal/Minecraft.ttf" id="2_7oyak"]
+[ext_resource type="PackedScene" uid="uid://dgnlg6tjedong" path="res://map.tscn" id="3_v2pce"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qax5g"]
+bg_color = Color(0.15, 0.15, 0.15, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6rs77"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[sub_resource type="GDScript" id="GDScript_v2vgw"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Main scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Terminal" type="Control" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("1_3rju4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/Terminal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="LineEdit" type="LineEdit" parent="HSplitContainer/Terminal/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_7oyak")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qax5g")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HSplitContainer/Terminal/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 1, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_7oyak")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6rs77")
+text = ">
+>
+>
+>You are a robot
+>This is the 'Brain' from the robot
+> You can only type 0 or 1
+> On your way you will find more complex codes
+> BUT...
+> Your system needs to update everytime you use a new code
+> The longer the code the longer it updates
+> Now you can start:
+>	Type 1"
+
+[node name="Cam" type="Control" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="HSplitContainer/Cam"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HSplitContainer/Cam"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -278.0
+offset_top = -325.0
+offset_right = 285.0
+offset_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HSplitContainer/Cam/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(563, 648)
+render_target_update_mode = 4
+
+[node name="map" parent="HSplitContainer/Cam/SubViewportContainer/SubViewport" instance=ExtResource("3_v2pce")]
+z_index = 1
+
+[node name="Label" type="Label" parent="HSplitContainer/Cam"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 4.0
+offset_bottom = 44.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_7oyak")
+theme_override_font_sizes/font_size = 32
+text = "🔴Live"
+script = SubResource("GDScript_v2vgw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.0729167
+anchor_top = 0.0725309
+anchor_right = 0.927951
+anchor_bottom = 0.927469
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.117647, 0.117647, 1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 219.0
+offset_top = 123.0
+offset_right = -218.0
+offset_bottom = -123.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 75
+text = "Updating
+This might take a while"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 48.0001
+offset_top = 94.0
+offset_right = 92.0001
+offset_bottom = 197.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.58309
+theme_override_font_sizes/font_size = 75
+text = ":("
+horizontal_alignment = 1
